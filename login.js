@@ -42,9 +42,22 @@ async function logIn(){
         }
 
         //output the body which is the error/succeed message
-        const output = data.body
-        //alert brings up the pop up box, and returns the error/success message
-        alert(output);
+        console.log(data);
+        //get data from returned customer info
+        const code = data.statusCode;
+        const output = data.body;
+        const customerInfo = data.customerInfo;
+        const sCI = JSON.stringify(customerInfo);
+
+
+        if(code == 200){
+            sessionStorage.setItem('customerInfo', sCI);
+            window.location.href = "dashboard.html";
+        }
+        else{
+            alert(output);
+            return;
+        }
     }
     
     //for error
@@ -52,5 +65,9 @@ async function logIn(){
         console.error(error);
     }
 }
+
+
+
+
 
 

@@ -35,9 +35,13 @@ async function register() {
         }
 
         //output the body which is the error/succeed message
-        const output = data.body
-        //alert brings up the pop up box, and returns the error/success message
+        const output = data.body;
+        const ccode = data.statusCode;
+
         alert(output);
+
+        //alert brings up the pop up box, and returns the error/success message
+        
     }
     
     //for error
