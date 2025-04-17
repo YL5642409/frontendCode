@@ -1,3 +1,4 @@
+
 //event listener to when the document loads
 document.addEventListener("DOMContentLoaded", function() {
     const userId = setParams();
@@ -16,27 +17,42 @@ async function setParams(){
 
 async function signOut(){
     sessionStorage.clear();
-    window.location.href = "mainPage.html";
+    window.location.href = "login.html";
 }
 
-async function allInvoice(userId){
+async function allInvoice(customerID){
+    //customerID will be returned as a promise object
+    //use await to get the actual value
+    //userId is the actual value
+    userId = await customerID
+    console.log(userId)
+    
 
     try{
-        //res is the response of the API
-        const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/userId/invoices?userId=${userId}`, {
-            method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                }
-        })
+        const res = await fetch(`https://11fgn0gs99.execute-api.ap-southeast-2.amazonaws.com/v2/user/${userId}/invoices`);
         //data returned from the API call(res) will be called 'data'
         const data = await res.json();
         const code = data.statusCode;
         const invoiceList = data.body;
 
         console.log(code);
+        console.log(invoiceList);
 
+        if(code != 200){
+            console.log('Error')
+        }
+        else{
+            if(invoiceList.length == 0){
+                console.log('No elements')
+            }
+            else{
+                console.log('Listing invoice')
+                //list the invoice
+            }
+    
+        }
+
+        
         //return error 
         if(!res.ok){
             console.log('Error');
